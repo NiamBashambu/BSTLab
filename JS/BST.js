@@ -5,7 +5,7 @@ class BST {
         #data;
         #left;
         #right;
-
+//test
         constructor(data){
             //data element
             this.#data = data;
