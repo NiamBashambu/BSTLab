@@ -189,40 +189,6 @@ class BST {
      
       return tempNode.data
   }
-/**
-   * The number of leaf nodes if it were a perfect bst
-   **/
-
-  width(){
-      return Math.pow(2, this.height() - 1)
-  }
-   /**
-   * the height of the tree
-   **/
-  height(){
-      if(this.#root == null){
-          return 0;
-      }
-      return this.heightHelper(this.#root)
-  }
-  /**
-   * finding the max height of the right and left branches
-   **/
-  heightHelper(bstNode){
-      if(bstNode == null){
-          return 0
-      }
-      let left = this.heightHelper(bstNode.left)
-      let right = this.heightHelper(bstNode.right)
-     
-      if(left > right){
-           let max = left
-           return max+1
-      }else{
-           let max = right
-           return max+1
-      }
-  }
 
   /*
   *in order traversal
