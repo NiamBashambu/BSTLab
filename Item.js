@@ -1,4 +1,4 @@
-class Item {
+export default class Item {
     #name = '';    // Cannot be null
     #stock = 0;    // All values allowed
     #price = 0.0;  // Cannot be negative
@@ -10,6 +10,20 @@ class Item {
        this.stock = 0;
        this.price = 0.0;
     }
-    // Add Appropriate getters and setters
+    setStock(newStock){
+       this.stock = newStock;
+    }
+    getStock(){
+       return this.stock;
+    }
+    setPrice(newPrice){
+       if(this.price < 0){
+          return false
+       }
+       this.price = newPrice;
+       return true;
+
+    }
+    
  
  }
