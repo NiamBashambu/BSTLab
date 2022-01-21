@@ -1,14 +1,13 @@
 export default class BST {
-    #root;
-    #comparator;
+  
     static BSTNode = class {
     
         constructor(data){
             //data element
-            this.#data = data;
+            this.data = data;
             //left and right nodes
-            this.#left = null;
-            this.#right = null;
+            this.left = null;
+            this.right = null;
         }
         getData(){
             return this.data;
@@ -28,25 +27,35 @@ export default class BST {
    }
   constructor(comparator) {
       this.root = null;
-      if(#comparator !== null){
-         this.#comparator = comparator;
+      
      
       }
      
-  }
+  
   
 
   /**
    * Adding a node to the bst
    **/
   add(data) {
-      const Node = BST.BSTNode(data);
-     
-     
+      const node = new BST.BSTNode(data);
+      const addHelper = (currNode, newNode) => {
+        if (this.#comparator(currNode.getData().name, newNode.getData().name) === 1) {
+            if (currNode.left === null) currNode.left = newNode;
+            else addHelper(currNode.left, newNode);
+        } else {
+            if (currNode.right === null) currNode.right = newNode;
+            else addHelper(currNode.right, newNode);
+        }
+    };
+    if (this.root === null) this.root = node;
+    else addHelper(this.root, node);
+}
+
       
-  }
+  
    /**
-   * Removing a node
+   * Removing a node from BST
    **/
   remove( data) {
       
@@ -55,16 +64,16 @@ export default class BST {
   /*
   *in order traversal
   */
-  
+  /*bilal helped with this*/
   inOrder() {
-    const rtnList = [];
+    const rList = [];
     const inOrderHelper = (node) => {
         if (node?.left) inOrderHelper(node.left);
-        if (node) rtnList.push(node.data);
+        if (node) rList.push(node.data);
         if (node?.right) inOrderHelper(node.right);
     };
     inOrderHelper(this.root);
-    return rtnList;
+    return rList;
       
       
   }
