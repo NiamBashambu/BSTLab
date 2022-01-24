@@ -13,15 +13,15 @@ export const comparator = (a, b) =>
 let lines = readFileSync('data/inventory.txt', { encoding: 'utf-8' }).split('\n');
 
 let bst = new BST(comparator);
-
 for (let i = 0; i < lines.length; i++) {
 	lines[i] = JSON.parse(lines[i]);
 	bst.add(lines[i]);
 }
+let linesinOrder = bst.inOrder();
 
-let LinesinOrder = bst.inOrder();
 
-for (const line of LinesinOrder)
-	writeFileSync('data/storeData.txt', JSON.stringify(line) + '\n', {
+for (let i = 0; i < lines.length; i++) {
+	writeFileSync('data/storeData.txt', JSON.stringify(lines[i]) + '\n', {
 		flag: 'a+',
 	});
+}

@@ -42,9 +42,6 @@ export default class BST {
       const addHelper = (currentN, newN) => {
         if (this.root === null) this.root = node;
         else addHelper(this.root, node);
-    
-
-
         if (this.#comparator(currentN.getData().name, newN.getData().name) === 1) {
             if (currentN.left === null) currentN.left = newN;
             else addHelper(currentN.left, newN);
