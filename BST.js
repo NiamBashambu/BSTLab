@@ -23,7 +23,7 @@ export default class BST {
    // = 0 if a == b
    // > 0 if a > b
    #comparator = function(a,b){
-      throw 'comparator not defined!';
+      
    }
   constructor(comparator) {
       this.root = null;
@@ -39,17 +39,20 @@ export default class BST {
    **/
   add(data) {
       const node = new BST.BSTNode(data);
-      const addHelper = (currNode, newNode) => {
-        if (this.#comparator(currNode.getData().name, newNode.getData().name) === 1) {
-            if (currNode.left === null) currNode.left = newNode;
-            else addHelper(currNode.left, newNode);
+      const addHelper = (currentN, newN) => {
+        if (this.root === null) this.root = node;
+        else addHelper(this.root, node);
+    
+
+
+        if (this.#comparator(currentN.getData().name, newN.getData().name) === 1) {
+            if (currentN.left === null) currentN.left = newN;
+            else addHelper(currentN.left, newN);
         } else {
-            if (currNode.right === null) currNode.right = newNode;
-            else addHelper(currNode.right, newNode);
+            if (currentN.right === null) currentN.right = newN;
+            else addHelper(currentN.right, newN);
         }
-    };
-    if (this.root === null) this.root = node;
-    else addHelper(this.root, node);
+    }
 }
 
       
