@@ -1,8 +1,8 @@
-export default class Item {
+ class Item {
     #name = '';    // Cannot be null
     #stock = 0;    // All values allowed
     #price = 0.0;  // Cannot be negative
- 
+ //appropriate getters and setters 
     constructor(name = '') {
        if(!name) name = '';
  
@@ -20,10 +20,17 @@ export default class Item {
        if(this.price < 0){
           return false
        }
+       
        this.price = newPrice;
        return true;
 
     }
-    
+    getPrice() {
+      if (this.price >=0 ) return this.price;
+
+   }
+   
+}
  
- }
+
+module.exports = Item;

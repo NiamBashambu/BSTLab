@@ -1,27 +1,49 @@
-import { readFileSync, writeFileSync } from 'fs';
-import BST from './BST.js';
-
-export const getInventory = () =>
-	readFileSync('data/inventory.txt', { encoding: 'utf-8' }).split('\n');
-
-export const comparator = (a, b) => 
-	String(a).localeCompare(String(b));
-// add const statements
-
-
-
-let lines = readFileSync('data/inventory.txt', { encoding: 'utf-8' }).split('\n');
-
-let bst = new BST(comparator);
-for (let i = 0; i < lines.length; i++) {
-	lines[i] = JSON.parse(lines[i]);
-	bst.add(lines[i]);
-}
-let linesinOrder = bst.inOrder();
+const fs = require('fs');
+const readline = require('readline');
+let BSTNode = require("./bst.js");
+let Item = require("./item.js");
+let BST = new BSTNode(function(a,b){
+	if(a.name > b.name) {
+	  return 1
+	} else if(a.name < b.name) {
+	  return -1
+	} else if(a.name === b.name) {
+	  return 0
+	}
+  })
 
 
-for (let i = 0; i < lines.length; i++) {
-	writeFileSync('data/storeData.txt', JSON.stringify(lines[i]) + '\n', {
-		flag: 'a+',
+//removing duplicate items and adding the stock and price to one version of the item
+function processLineByLine() {
+	require('fs').readFileSync('data/inventory.txt', 'utf-8').split(/\r?\n/).forEach(function(line) {
+	  line = JSON.parse(line)
+	  let item = new Item(line.name)
+	  item.stock = 0
+	  item.price = line.cost 
+	  item.price = parseFloat((item.price).substring(1))
+	  let removedNode = BST.remove(item)
+	  if(removedNode !== null) {
+		item.price = Math.round((removedNode.price + item.price) / 2 * 100) / 100
+		item.stock += removedNode.stock + line.stock
+	  }
+	  BST.add(item)
+	})
+
+  }
+  processLineByLine()
+  
+  let inOrderTransversal = BST.inOrder()
+  //writing jsons to new text file
+  function writeToTextFile(arrayToWrite) {
+	let stream = fs.createWriteStream("data/storeData.txt");
+	stream.once('open', function(fd) {
+	  for(let i = 0; i < arrayToWrite.length; i++) {
+		arrayToWrite[i] = JSON.stringify(arrayToWrite[i])
+		stream.write(arrayToWrite[i])
+		stream.write('\n')
+	  }
+	  let uniqueItems = arrayToWrite.length.toString()
+	  stream.write('Number of Unique Items: ' +  uniqueItems)
 	});
-}
+  }
+  writeToTextFile(inOrderTransversal)
