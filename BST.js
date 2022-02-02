@@ -7,9 +7,7 @@ const { exit } = require("process");
         this.left = null;
         this.right = null;
     }
-    getData(){
-        return this.data;
-    }
+
     
 };
  class BST {
@@ -23,7 +21,7 @@ const { exit } = require("process");
    // < 0 if a < b
    // = 0 if a == b
    // > 0 if a > b
-   #comparator = function(a,b){
+   comparator = function(a,b){
       
    }
   constructor(comparator) {

@@ -28,7 +28,7 @@ function processLineByLine() {
 	  item.price =  parseFloat((item.price).substring(1))
 	  
 	  let removedNode = BST.remove(item)
-	  if(removedNode !== null) {
+	  if(removedNode) {
 		item.price = (Math.round((removedNode.price + item.price) / 2 * 100) / 100 )
 	  
 		item.stock += removedNode.stock + line.stock
@@ -62,10 +62,6 @@ function processLineByLine() {
 		
 		
 	  }
-	  
-	  
-	 
-	
 	
 });
 	
