@@ -1,5 +1,4 @@
 const fs = require('fs');
-const readline = require('readline');
 let BSTNode = require("./bst.js");
 let Item = require("./item.js");
 let BST = new BSTNode(function(a,b){
@@ -38,12 +37,15 @@ function processLineByLine() {
 	let stream = fs.createWriteStream("data/storeData.txt");
 	stream.once('open', function(fd) {
 	  for(let i = 0; i < arrayToWrite.length; i++) {
-		arrayToWrite[i] = JSON.stringify(arrayToWrite[i])
-		stream.write(arrayToWrite[i])
-		stream.write('\n')
+		require('fs').writeFileSync('data/storeData.txt', JSON.stringify(arrayToWrite[i]) + '\n', {
+			flag: 'a+',
+		
+		});
 	  }
-	  let uniqueItems = arrayToWrite.length.toString()
-	  stream.write('Number of Unique Items: ' +  uniqueItems)
-	});
-  }
+	let uniqueItems = arrayToWrite.length.toString();
+	stream.write('Number of Unique Items: ' +  uniqueItems);
+});
+	
+}
   writeToTextFile(inOrderTransversal)
+  

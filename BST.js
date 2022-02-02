@@ -110,7 +110,6 @@ const { exit } = require("process");
             return removeNode(parentRightLeftChild, rightLeftChild)
           } else {
             if(r.left !== null && r.right !== null) {
-            //two childronnn
             let rp = r
             let removeOne = rp.left
             while(removeOne.right !== null) {
