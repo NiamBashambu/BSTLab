@@ -25,10 +25,16 @@
        return true;
 
     }
-    getPrice() {
-      if (this.price >=0 ) return this.price;
-
-   }
+   
+   addMoneySign() {
+      let stringifiedPrice = this.price.toString()
+      let json = {
+        name: this.name,
+        stock: this.stock,
+        price: '$' + stringifiedPrice
+      }
+      return json
+    }
    
 }
  

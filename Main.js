@@ -1,6 +1,8 @@
 const fs = require('fs');
+//getting the BST and Item classes
 let BSTNode = require("./bst.js");
 let Item = require("./item.js");
+//creates BST, which will store all the items
 let BST = new BSTNode(function(a,b){
 	if(a.name > b.name) {
 	  return 1
@@ -11,8 +13,10 @@ let BST = new BSTNode(function(a,b){
 	}
   })
 
+  
 
 //removing duplicate items and adding the stock and price to one version of the item
+//checks for null and such
 function processLineByLine() {
 	require('fs').readFileSync('data/inventory.txt', 'utf-8').split(/\r?\n/).forEach(function(line) {
 	  line = JSON.parse(line)
@@ -30,22 +34,40 @@ function processLineByLine() {
 
   }
   processLineByLine()
+  //writing the inorder items tp the json
+  let inOrderT = BST.inOrder()
   
-  let inOrderTransversal = BST.inOrder()
-  //writing jsons to new text file
   function writeToTextFile(arrayToWrite) {
-	let stream = fs.createWriteStream("data/storeData.txt");
-	stream.once('open', function(fd) {
+	let file = fs.createWriteStream("data/storeData.txt");
+	let uniqueItems = arrayToWrite.length.toString();
+	file.once('open', function(fd) {
+		file.write('Number of Unique Items: ' + uniqueItems);
+		file.write('\n');
+		
 	  for(let i = 0; i < arrayToWrite.length; i++) {
-		require('fs').writeFileSync('data/storeData.txt', JSON.stringify(arrayToWrite[i]) + '\n', {
+	
+		require('fs').writeFileSync('data/storeData.txt',JSON.stringify(arrayToWrite[i]) + '\n', {
 			flag: 'a+',
+			
 		
 		});
+		
+		
 	  }
-	let uniqueItems = arrayToWrite.length.toString();
-	stream.write('Number of Unique Items: ' +  uniqueItems);
+	  
+	  /*
+	
+	  require('fs').writeFileSync('data/storeData.txt',file.write('Number of Unique Items: ' + uniqueItems) + '\n', {
+		flag: 'a+',
+		
+	
+	});
+*/
+	 
+	
+	
 });
 	
 }
-  writeToTextFile(inOrderTransversal)
+  writeToTextFile(inOrderT)
   
