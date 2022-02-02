@@ -30,8 +30,7 @@ function processLineByLine() {
 	  let removedNode = BST.remove(item)
 	  if(removedNode !== null) {
 		item.price = (Math.round((removedNode.price + item.price) / 2 * 100) / 100 )
-		
-		console.log(item.price)
+	  
 		item.stock += removedNode.stock + line.stock
 	  }
 	  BST.add(item)
